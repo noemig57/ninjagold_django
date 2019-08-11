@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ninja Money</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .body {
+            background-color: lavenderblush;
+        }
+        .container {
+            background-color: lavender;
+            width: max-content;
+            height: max-content;
+        }
+        .counter {
+            padding-left: 400px;
+
+        }
+        h4 {
+            font-size: 25px;
+            margin-left: 20px;
+        }
+
+        
+        .box{
+            display: inline-block;
+            vertical-align: top;  
+            width: 250px;
+            height:150px; 
+            border: 3px solid darkorchid;
+            font-size:  20px;
+            background-color: lavenderblush;
+            text-align: center;
+            color: darkorchid;
+            
+            
+        }
+        .small{
+            background-color:white;
+            display: inline-block;
+            border: 3px  purple solid;
+            width: 50px;
+            height: 30px;
+
+        }
+        .row {
+            display: relative;
+        }
+.act {
+    display: inline-block;
+    margin-left: 35px;
+    font-size: 30px;
+}
+
+
+    
+    </style>
+</head>
+
+<body class='body'>
+    <div class="container">
+        <div class='counter'>
+        <h4>Your Gold: <div class="small">{{request.session.total_gold}}</div></h4></div>
+        <div class='box'>
+            <br>
+            <form action="/process_money" method="POST">
+                {% csrf_token %}
+                Farm 10 - 20 GOLD
+                <br>
+                <br>
+                        <h4 class="text-default">
+                            <input type="hidden" name="building" value="farm" />
+                            <input type="submit" class="btn btn-default btn-lg pull-center" value="Find Gold!">
+                        </h4>
+            </div>
+        
+            </form>
+            <div class='box'>
+                <br>
+            <form action="/process_money" method="POST">
+                {% csrf_token %}
+                Cave 5 - 10 GOLD
+                <br>
+                <br>
+                        <h4 class="text-default">
+                            <input type="hidden" name="building" value="cave" />
+                            <input type="submit" class="btn btn-default btn-lg pull-center" value="Find Gold!">
+                            
+                        </h4>
+                    </form>
+            </div>
+           
+            <div class="box">
+                <br>
+            <form action="/process_money" method="POST">
+                {% csrf_token %}
+                House 2 - 5 GOLD
+                <br>
+                <br>
+                        <h4 class="text-default">
+                            <input type="hidden" name="building" value="house" />
+                            <input type="submit" class="btn btn-default btn-lg pull-center" value="Find Gold!">
+                        </h4>
+            </form>
+            </div>
+            
+            <div class='box'>
+                <br>
+            <form action="/process_money" method="POST">
+                {% csrf_token %}
+                Casino Earn/Lose 0 - 50 GOLD
+                
+                        <h4 class="text-default">
+                            <input type="hidden" name="building" value="casino" />
+                            <input type="submit" class="btn btn-default btn-lg pull-center" value="Find Gold!">
+                        </h4>
+                    </form>
+                    </div>
+            
+       
+        
+        
+            <form action="/reset" method="POST">
+                {% csrf_token %}
+                <div class='ab'><input type="submit" style="color:blueviolet; padding-right: 20px; margin-top: 20px;" class="btn btn-lg pull-center btn-block" value="Play Again"></div>
+            
+            </form>
+
+            <div class="row">
+                <h3 class='act'>Activities:</h3>
+                <div class="col-lg-12" style="height: 350px; overflow: scroll">
+                    {% for log in request.session.activities reversed %}
+                    {% if "lost" in log %}
+                    <h4 class="text-danger">{{ log }}</h4>
+                    {% else %}
+                    <h4 class="text-success">{{ log }}</h4>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+           
+</body>
+
+</html>
